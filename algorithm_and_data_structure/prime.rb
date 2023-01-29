@@ -40,3 +40,21 @@ p(mp.length - np.length)
 # 素因数とその個数を配列で返す
 # 18 => [[2, 1], [3, 2]] # 2^1 + 3^2
 p(18.prime_division)
+
+# 約数列挙
+def enum_div(n)
+  res = []
+  i = 1
+  while i * i <= n
+    i += 1
+    if n % i == 0
+      res << i
+      res << n / i if n / i != i
+    end
+  end
+
+  res.sort!
+  res
+end
+
+p(enum_div(18))
