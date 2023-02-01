@@ -37,6 +37,7 @@ np = prime_numbers_under_n(n)
 mp = prime_numbers_under_n(m)
 p(mp.length - np.length)
 
+# 素因数分解
 # 素因数とその個数を配列で返す
 # 18 => [[2, 1], [3, 2]] # 2^1 + 3^2
 p(18.prime_division)
