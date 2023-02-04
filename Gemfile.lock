@@ -1,0 +1,56 @@
+GIT
+  remote: https://github.com/YuheiNakasaka/mastodon-api
+  revision: e5031adc26c482d458cdcd19f813e6a170b21e4a
+  branch: feature/get-accounts-statues
+  specs:
+    mastodon-api (2.0.0)
+      addressable (~> 2.6)
+      buftok (~> 0)
+      http (~> 4.0)
+      oj (~> 3.7)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
+    buftok (0.3.0)
+    coderay (1.1.3)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.8.1)
+    ffi (1.15.5)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
+    http (4.4.1)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
+    http-cookie (1.0.5)
+      domain_name (~> 0.5)
+    http-form_data (2.3.0)
+    http-parser (1.2.3)
+      ffi-compiler (>= 1.0, < 2.0)
+    method_source (1.0.0)
+    oj (3.14.1)
+    pry (0.14.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    public_suffix (5.0.1)
+    rake (13.0.6)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.8.2)
+
+PLATFORMS
+  x86_64-darwin-20
+
+DEPENDENCIES
+  dotenv
+  mastodon-api!
+  pry
+
+BUNDLED WITH
+   2.4.4
