@@ -2,6 +2,10 @@
 #
 # 2^N通りの組み合わせはNが10^5なのでTLEになる
 # 深さ優先探索していくだけじゃダメか？
+#
+# わからん。解説。
+# https://atcoder.jp/contests/abc291/editorial/5838
+# DPだ...
 
 MOD = 998244353
 N = gets.to_i
@@ -10,40 +14,20 @@ N.times do |i|
   ab << gets.split.map(&:to_i)
 end
 
-ans = 1
-cur0 = -1
-cur1 = -1
-sm = 0
-0.upto(N - 1) do |i|
-  cnt = 0
-  sm = 0
-  if ab[i][0] != cur0
-    cnt += 1
-  else
-    sm += 1
+dp = Array.new(N) { [0, 0] }
+dp[0] = [1, 1]
+
+1.upto(N - 1) do |i|
+  2.times do |pre|
+    2.times do |nxt|
+      if ab[i - 1][pre] != ab[i][nxt]
+        dp[i][nxt] += dp[i - 1][pre]
+      end
+    end
   end
 
-  if ab[i][1] != cur0
-    cnt += 1
-  else
-    sm += 1
-  end
-
-  if ab[i][0] != cur1
-    cnt += 1
-  else
-    sm += 1
-  end
-
-  if ab[i][1] != cur1
-    cnt += 1
-  else
-    sm += 1
-  end
-
-  ans *= cnt
-
-  cur0, cur1 = ab[i][0], ab[i][1]
+  dp[i][0] %= MOD
+  dp[i][1] %= MOD
 end
 
-puts(ans / sm)
+puts((dp[N - 1][0] + dp[N - 1][1]) % MOD)
