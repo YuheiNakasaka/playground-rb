@@ -42,6 +42,28 @@ p(mp.length - np.length)
 # 18 => [[2, 1], [3, 2]] # 2^1 + 3^2
 p(18.prime_division)
 
+# nの素因数の数を数える
+primes = Prime.each(Math.sqrt(n).to_i).to_a
+def prime_division_count(n, primes)
+  res = 1
+  primes.each do |i|
+    break if n < i
+    tmp = 0
+    while n % i == 0
+      n /= i
+      tmp += 1
+    end
+
+    res *= tmp + 1 if tmp > 0
+  end
+
+  if n >= 2
+    res *= 2
+  end
+
+  res
+end
+
 # 約数列挙
 def enum_div(n)
   res = []
@@ -54,8 +76,24 @@ def enum_div(n)
     end
   end
 
-  res.sort!
   res
+end
+
+def enum_div(n)
+  return Set.new.add(1) if n == 1
+
+  set = Set.new
+  i = 1
+  while i * i <= n
+    i += 1
+    if n % i == 0
+      set.add(i)
+      set.add(n / i) if n / i != i
+    end
+  end
+
+  set.add(1)
+  set.add(n)
 end
 
 p(enum_div(18))
