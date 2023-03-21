@@ -97,3 +97,70 @@ def enum_div(n)
 end
 
 p(enum_div(18))
+
+# 高速素因数分解
+# https://qiita.com/ganyariya/items/fba261ee53a5b6decc47
+#
+# 計算量: O(Qlogxi) => Q = 10**6, xi = 10**6 then 10**6 * 6
+# spf: xを素因数分解したときの最小の素数
+# cnt: x = a * bを満たすa, bの組み合わせの個数
+#
+# 使い方
+# n = 60
+# spf = SmallestPrimeFactors.new(n)
+# spf.factolize(x) # => [2, 2, 3, 5]
+# spf.cnt # => 12
+class SmallestPrimeFactors
+  attr_accessor :spf, :cnt
+
+  def initialize(n)
+    @n = n
+    @spf = Array.new(n + 1, 0)
+    @cnt = 1
+    init_spf
+  end
+
+  def factolize(x)
+    @cnt = 1
+    res = []
+    prev = @spf[x]
+    e = 0
+    while x != 1
+      if prev != @spf[x]
+        @cnt *= e + 1
+        prev = @spf[x]
+        e = 0
+      end
+
+      e += 1
+      res << @spf[x]
+      x /= @spf[x]
+    end
+
+    @cnt *= e + 1
+
+    res.sort
+  end
+
+  def init_spf
+    (@n + 1).times do |i|
+      @spf[i] = i
+    end
+
+    i = 2
+    while i * i <= @n
+      if @spf[i] == i
+        j = i * i
+        while j <= @n
+          if @spf[j] == j
+            @spf[j] = i
+          end
+
+          j += i
+        end
+      end
+
+      i += 1
+    end
+  end
+end
