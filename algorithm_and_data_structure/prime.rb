@@ -65,24 +65,12 @@ def prime_division_count(n, primes)
 end
 
 # 約数列挙
+# SortedSetはRuby3系では消えてるので注意
+# addした順序を保ちたいなら普通のSetを使うべし
 def enum_div(n)
-  res = []
-  i = 1
-  while i * i <= n
-    i += 1
-    if n % i == 0
-      res << i
-      res << n / i if n / i != i
-    end
-  end
+  return SortedSet.new.add(1) if n == 1
 
-  res
-end
-
-def enum_div(n)
-  return Set.new.add(1) if n == 1
-
-  set = Set.new
+  set = SortedSet.new
   i = 1
   while i * i <= n
     i += 1
