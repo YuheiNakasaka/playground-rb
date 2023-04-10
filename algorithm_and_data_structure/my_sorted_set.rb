@@ -223,6 +223,7 @@ p("x.index_right(-1)  #{x.index_right(-1)}")
 
 # 追加
 x.add(11)
+p("x.arr: #{x.arr}")
 # 削除
 x.discard(9)
 p("x.arr: #{x.arr}")

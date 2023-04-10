@@ -1,4 +1,4 @@
-# Heap with Ruby
+# 最大Heap with Ruby
 class Heap
   attr_accessor :heap
 
@@ -20,7 +20,7 @@ class Heap
     end
   end
 
-  def delete
+  def max_pop
     return nil if @heap.empty?
     return @heap.pop if @heap.size == 1
     max = @heap[0]
@@ -66,16 +66,19 @@ end
 # #  5   6
 # # 3 2 1 4
 #
-# heap = Heap.new
-# heap.insert(7)
-# heap.insert(5)
-# heap.insert(6)
-# heap.insert(3)
-# heap.insert(2)
-# heap.insert(1)
-# heap.insert(4)
-# p(heap)
-# heap.delete
-# p(heap)
-# heap.insert(8)
-# p(heap)
+h = Heap.new
+h.insert(70)
+h.insert(50)
+h.insert(60)
+h.insert(30)
+h.insert(20)
+h.insert(10)
+h.insert(40)
+p("h: #{h.heap}")
+# 70
+p("h.max_pop: #{h.max_pop}")
+
+p("h.insert(8)#{h.insert(80)}")
+
+# 80
+p("h.max_pop: #{h.max_pop}")

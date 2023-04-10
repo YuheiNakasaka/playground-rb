@@ -1,5 +1,6 @@
-# 10^10通りのAの組み合わせを全探索するとTLEする。
-# Kが2x10^5で制約が3秒なのでKの方を基準に考えてみる
+# Priority Queue
+# Reference: https://github.com/python/cpython/blob/main/Lib/heapq.py
+# https://github.com/universato/ac-library-rb/blob/main/lib/priority_queue.rb
 class PriorityQueue
   # By default, the priority queue returns the maximum element first.
   # If a block is given, the priority between the elements is determined with it.
@@ -111,20 +112,4 @@ class PriorityQueue
   end
 end
 
-N, K = gets.split.map(&:to_i)
-A = gets.split.map(&:to_i).sort
-q = PriorityQueue.new([0]) { |x, y| x < y }
-ans = Array.new(K + 1, 0)
-is_used = {}
-(K + 1).times do |i|
-  v = q.pop
-  ans[i] = v
-  N.times do |j|
-    if is_used[v + A[j]].nil?
-      q.push(v + A[j])
-      is_used[v + A[j]] = true
-    end
-  end
-end
-
-puts(ans[K])
+HeapQueue = PriorityQueue
