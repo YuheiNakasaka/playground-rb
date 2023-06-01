@@ -1,3 +1,4 @@
+# DP
 # https://atcoder.jp/contests/tessoku-book/tasks/dp_a
 class Solver
   def initialize

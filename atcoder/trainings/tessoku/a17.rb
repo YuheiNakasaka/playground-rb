@@ -1,3 +1,4 @@
+# DP 復元
 # https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_q
 class Solver
   def initialize

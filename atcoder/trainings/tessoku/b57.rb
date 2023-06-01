@@ -1,3 +1,4 @@
+# ダブリング
 # https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_ed
 class Solver
   def initialize

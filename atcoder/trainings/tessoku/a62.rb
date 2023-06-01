@@ -1,3 +1,4 @@
+# 深さ優先探索
 class Solver
   def initialize
     @g = []
