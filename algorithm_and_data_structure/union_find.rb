@@ -1,5 +1,7 @@
 # UnionFind
 class UnionFind
+  attr_accessor :par, :siz
+
   def initialize(n)
     @par = Array.new(n, -1)
     @siz = Array.new(n, 1)
