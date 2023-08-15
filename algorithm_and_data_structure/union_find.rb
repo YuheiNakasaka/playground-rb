@@ -1,3 +1,30 @@
+# Test
+# #    7
+# #  5   6
+# # 3 2 1 4
+# #
+# #    9
+# #  8   0
+# N = 10
+# uf = UnionFind.new(N)
+# uf.unite(7, 5)
+# uf.unite(7, 6)
+# uf.unite(5, 3)
+# uf.unite(5, 2)
+# uf.unite(6, 1)
+# uf.unite(6, 4)
+# uf.unite(9, 8)
+# uf.unite(9, 0)
+
+# res = 0
+# N.times do |i|
+#   if uf.root(i) == i
+#     res += 1
+#   end
+# end
+
+# p(uf)
+# p(res)
 # UnionFind
 class UnionFind
   attr_accessor :par, :siz
@@ -42,31 +69,3 @@ class UnionFind
     @siz[root(x)]
   end
 end
-
-# Test
-# #    7
-# #  5   6
-# # 3 2 1 4
-# #
-# #    9
-# #  8   0
-# N = 10
-# uf = UnionFind.new(N)
-# uf.unite(7, 5)
-# uf.unite(7, 6)
-# uf.unite(5, 3)
-# uf.unite(5, 2)
-# uf.unite(6, 1)
-# uf.unite(6, 4)
-# uf.unite(9, 8)
-# uf.unite(9, 0)
-
-# res = 0
-# N.times do |i|
-#   if uf.root(i) == i
-#     res += 1
-#   end
-# end
-
-# p(uf)
-# p(res)
