@@ -5,34 +5,26 @@
 # ■解説
 #
 n, m = gets.split.map(&:to_i)
-@cs = {}
-@g = Array.new(n) { [] }
+@g = Array.new(n) { Array.new(n) }
 m.times do |i|
   a, b, c = gets.split.map(&:to_i)
-  @g[a - 1] << b - 1
-  @g[b - 1] << a - 1
-  @cs["#{b - 1}_#{a - 1}"] = c
-  @cs["#{a - 1}_#{b - 1}"] = c
+  @g[a - 1][b - 1] = c
+  @g[b - 1][a - 1] = c
 end
 
-@max = -1
-def dfs(idx, routes, sum)
-  routes[idx] = true
-  @g[idx].each do |i|
-    if routes[i]
-      if @max <= sum
-        @max = sum
-      end
+max = -1
+(0..(n - 1)).to_a.permutation.each do |routes|
+  i = 0
+  sum = 0
+  while i < routes.size - 1
+    break if @g[routes[i]][routes[i + 1]].nil?
+    sum += @g[routes[i]][routes[i + 1]]
+    i += 1
+  end
 
-      next
-    end
-
-    dfs(i, routes.clone, sum + @cs["#{idx}_#{i}"])
+  if max <= sum
+    max = sum
   end
 end
 
-n.times do |i|
-  dfs(i, Array.new(n, false), 0)
-end
-
-puts(@max)
+puts(max)
