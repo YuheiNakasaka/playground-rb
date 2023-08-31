@@ -10,64 +10,133 @@
 # Rubyだと通らないのでPyPyで通した
 
 @h, @w = gets.split.map(&:to_i)
-@g = Array.new(@h) { Array.new(@w) }
-@start = []
-@end = []
+@g = Array.new(@h)
+@hh = {"." => 0, "<" => 1, ">" => 2, "v" => 3, "^" => 4, "!" => 5, "#" => 6, "S" => 7, "G" => 8}
 @h.times do |i|
-  hw = gets.chomp.split("")
+  @g[i] = gets.chomp.chars.map { |c| @hh[c] }
+end
+
+# >
+@h.times do |i|
+  blocking = false
   @w.times do |j|
-    if hw[j] == "S"
+    if @g[i][j] == 2
+      blocking = true
+    elsif !(@g[i][j] == 0 || @g[i][j] == 5)
+      blocking = false
+    end
+
+    if blocking && @g[i][j] == 0
+      @g[i][j] = 5
+    end
+  end
+end
+
+# <
+@h.times do |i|
+  blocking = false
+  (@w - 1).downto(0) do |j|
+    if @g[i][j] == 1
+      blocking = true
+    elsif !(@g[i][j] == 0 || @g[i][j] == 5)
+      blocking = false
+    end
+
+    if blocking && @g[i][j] == 0
+      @g[i][j] = 5
+    end
+  end
+end
+# v
+@w.times do |j|
+  blocking = false
+  @h.times do |i|
+    if @g[i][j] == 3
+      blocking = true
+    elsif !(@g[i][j] == 0 || @g[i][j] == 5)
+      blocking = false
+    end
+
+    if blocking && @g[i][j] == 0
+      @g[i][j] = 5
+    end
+  end
+end
+# ^
+(@w - 1).downto(0) do |j|
+  blocking = false
+  (@h - 1).downto(0) do |i|
+    if @g[i][j] == 4
+      blocking = true
+    elsif !(@g[i][j] == 0 || @g[i][j] == 5)
+      blocking = false
+    end
+
+    if blocking && @g[i][j] == 0
+      @g[i][j] = 5
+    end
+  end
+end
+
+@start = []
+@h.times do |i|
+  @w.times do |j|
+    if 1 <= @g[i][j] && @g[i][j] <= 5
+      @g[i][j] = 6
+    elsif @g[i][j] == 7
       @start = [i, j]
-    elsif hw[j] == "G"
-      @end = [i, j]
-    end
-
-    @g[i][j] = hw[j]
-  end
-end
-
-@block = Array.new(@h) { Array.new(@w, false) }
-@dir = [">", "<", "v", "^"]
-@dird = [
-  [0, 1],
-  [0, -1],
-  [1, 0],
-  [-1, 0]
-]
-4.times do |k|
-  @h.times do |h|
-    @w.times do |w|
-      next if @g[h][w] != @dir[k]
-      while true
-        h += @dird[k][0]
-        w += @dird[k][1]
-        break if !(0 <= h && h < @h && 0 <= w && w < @w) || @g[h][w] == "#" || @dir.include?(@g[h][w])
-        @block[h][w] = true
-      end
     end
   end
 end
 
-@scores = Array.new(@h) { Array.new(@w, -1) }
-@scores[@start[0]][@start[1]] = 0
-q = [@start]
-while q.empty?.!
-  i, j = q.shift
-  [
-    [-1, 0],
-    [1, 0],
-    [0, -1],
-    [0, 1]
-  ].each do |di, dj|
-    y = i + di
-    x = j + dj
-    next if !(0 <= y && 0 <= x && y < @h && x < @w) || @g[y][x] == "#" || @dir.include?(@g[y][x])
-    next if @block[y][x]
-    if @scores[y][x] == -1
-      q.push([y, x])
-      @scores[y][x] = @scores[i][j] + 1
+@q = [@start]
+@score = 0
+while @q != []
+  z = []
+  @q.each do |i, j|
+    if i > 0 && @g[i - 1][j] == 8
+      puts(@score + 1)
+      exit
+    end
+
+    if j > 0 && @g[i][j - 1] == 8
+      puts(@score + 1)
+      exit
+    end
+
+    if i < @h - 1 && @g[i + 1][j] == 8
+      puts(@score + 1)
+      exit
+    end
+
+    if j < @w - 1 && @g[i][j + 1] == 8
+      puts(@score + 1)
+      exit
+    end
+
+    if i > 0 && @g[i - 1][j] == 0
+      @g[i - 1][j] = nil
+      z << [i - 1, j]
+    end
+
+    if j > 0 && @g[i][j - 1] == 0
+      @g[i][j - 1] = nil
+      z << [i, j - 1]
+    end
+
+    if i < @h - 1 && @g[i + 1][j] == 0
+      @g[i + 1][j] = nil
+      z << [i + 1, j]
+    end
+
+    if j < @w - 1 && @g[i][j + 1] == 0
+      @g[i][j + 1] = nil
+      z << [i, j + 1]
     end
   end
+
+  @q = z.dup
+  @score += 1
 end
 
-puts(@scores[@end[0]][@end[1]])
+puts(-1)
