@@ -1,10 +1,13 @@
-#!/usr/bin/env ruby
-puts("鉄則の番号(a19やb31のような)を入力してください")
+# !/usr/bin/env ruby
+
+puts('鉄則の番号(a19やb31のような)を入力してください')
+
 no = gets.chomp
+
 if no =~ /(a|b)(\d+)/
   path = "atcoder/trainings/tessoku/#{no}.rb"
   if !File.exist?(path)
-    f = File.new(path, "w")
+    f = File.new(path, 'w')
     f.write("# \n")
     f.write("#\n")
     f.write("class Solver\n")
