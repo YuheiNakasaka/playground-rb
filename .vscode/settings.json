@@ -3,5 +3,5 @@
     "editor.formatOnSave": true
   },
   "rubocop.autocorrect": true,
-  "rubocop.safeAutocorrect": false
+  "rubocop.safeAutocorrect": true
 }
