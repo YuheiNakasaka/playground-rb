@@ -1,6 +1,9 @@
-# Priority Queue
-# Reference: https://github.com/python/cpython/blob/main/Lib/heapq.py
-# https://github.com/universato/ac-library-rb/blob/main/lib/priority_queue.rb
+# https://atcoder.jp/contests/abc320/tasks/abc320_e
+#
+# ■考えたこと
+#
+# ■解説
+#
 class PriorityQueue
   # By default, the priority queue returns the maximum element first.
   # If a block is given, the priority between the elements is determined with it.
@@ -110,4 +113,35 @@ class PriorityQueue
   end
 end
 
-HeapQueue = PriorityQueue
+n, m = gets.split.map(&:to_i)
+tws = Array.new(m)
+m.times do |i|
+  tws[i] = gets.split.map(&:to_i)
+end
+
+quantities = Array.new(n + 1, 0)
+humans = PriorityQueue.new((1..n).to_a) { |x, y| x < y }
+eatings = PriorityQueue.new { |x, y| x[0] < y[0] }
+
+m.times do |i|
+  t, w, s = tws[i]
+
+  until eatings.empty?
+    eated = eatings.get
+    break unless eated && eated[0] <= t
+
+    eated = eatings.pop
+    humans.append(eated[1])
+  end
+
+  head = humans.pop
+
+  unless head.nil?
+    quantities[head] += w
+    eatings.append([t + s, head])
+  end
+end
+
+1.upto(n) do |i|
+  puts quantities[i]
+end
