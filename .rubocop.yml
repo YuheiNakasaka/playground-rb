@@ -18,6 +18,9 @@ Lint:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Naming/MethodParameterName:
+  Enabled: false
+
 Layout/LineLength:
   Enabled: false
 
