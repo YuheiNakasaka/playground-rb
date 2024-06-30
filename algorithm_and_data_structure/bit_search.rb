@@ -18,4 +18,4 @@ exist = false
   end
 end
 
-puts(exist ? "Yes" : "No")
+puts(exist ? 'Yes' : 'No')
